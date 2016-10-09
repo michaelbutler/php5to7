@@ -35,7 +35,9 @@ class Upgrader
             }
         }
 
-        $this->outputTokens($tokens);
+        $string = $this->rebuildSourceCode($tokens);
+
+        echo $string;
     }
 
     private function validateInputPath()
@@ -115,17 +117,20 @@ class Upgrader
     }
 
     /**
-     * Output the tokens as a string.
+     * Get the PHP source code back from token list.
      * @param array[] $tokens
+     * @return string
      */
-    private function outputTokens($tokens)
+    private function rebuildSourceCode($tokens)
     {
+        $buffer = '';
         foreach ($tokens as $token) {
             if (is_string($token)) {
-                echo $token;
+                $buffer .= $token;
                 continue;
             }
-            echo $token[1];
+            $buffer .= $token[1];
         }
+        return $buffer;
     }
 }
