@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        backupGlobals="true"
+        backupStaticAttributes="false"
+        bootstrap="test/bootstrap.php">
+    <testsuites>
+        <testsuite name="php5to7 Test Suite">
+            <directory>./test/unit</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -1,5 +1,11 @@
 {
     "require": {
-        "nikic/php-parser": "^2.1"
+        "nikic/php-parser": "^2.1",
+        "phpunit/phpunit": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "michaelbutler\\php5to7\\": "src/"
+        }
     }
 }
