@@ -1,4 +1,8 @@
 {
+    "name": "michaelbutler/php5to7",
+    "require": {
+        "php": ">=5.4"
+    },
     "autoload": {
         "psr-4": {
             "michaelbutler\\php5to7\\": "src/"

@@ -3,9 +3,8 @@
 namespace michaelbutler\php5to7\test\unit;
 
 use michaelbutler\php5to7\MethodSignature;
-use PHPUnit\Framework\TestCase;
 
-class MethodSignatureTest extends TestCase
+class MethodSignatureTest extends \PHPUnit_Framework_TestCase
 {
     private function getSampleTokens()
     {
@@ -129,6 +128,7 @@ class MethodSignatureTest extends TestCase
             ],
         ];
 
+        static::assertNotEmpty($result);
         static::assertSame($expected, $result->getVariableTypeMap());
     }
 }
