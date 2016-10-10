@@ -7,7 +7,6 @@ php:
   - 7.0
   - 7.1
 before_script:
-    - composer require phpunit/phpunit=5.6.1
     - composer install --prefer-dist --dev -n
     - composer dump-autoload
 #  - if [[ ${TRAVIS_PHP_VERSION:0:1} != "7" && $TRAVIS_PHP_VERSION != "nightly" && $TRAVIS_PHP_VERSION != "hhvm" ]]; then phpenv config-add php5-testingConfig.ini; fi

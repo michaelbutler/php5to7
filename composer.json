@@ -1,13 +1,11 @@
 {
-    "require": {
-        "phpunit/phpunit": "^5.6"
-    },
     "autoload": {
         "psr-4": {
             "michaelbutler\\php5to7\\": "src/"
         }
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "*"
     }
 }
