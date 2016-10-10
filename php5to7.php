@@ -22,12 +22,35 @@ ini_set('xdebug.var_display_max_children', -1);
 ini_set('xdebug.var_display_max_data', -1);
 ini_set('xdebug.var_display_max_depth', -1);
 
-if (empty($argv[1])) {
-    echo "Please pass the input path (file or directory) as the first argument.\n";
+$helpMsg = <<<HELP
+Usage:
+php php5to7.php [OPTIONS] <file/directory>
+
+--overwrite     Instead of outputting the changed source, writes
+                the php7 changes into the file.
+--backup        For every file it modifies, copies the original
+                to filename.php.bak.
+-h  --help      This help message.
+
+<file/directory> The path to the individual file, or a directory
+                 to process every php file recursively.
+
+https://github.com/michaelbutler/php5to7
+Licensed under the GPLv3 (http://www.gnu.org/licenses/gpl.html)
+HELP;
+
+$options = new php5to7\Options($argv);
+
+if ($options->showHelp) {
+    echo $helpMsg;
+    exit;
+}
+
+if (empty($options->inputPath)) {
+    echo "Please pass the input path (file or directory) as an argument.\n";
+    echo $helpMsg;
     exit(2);
 }
 
-$input_path = $argv[1];
-
-$upgrader = new php5to7\Upgrader($input_path);
+$upgrader = new php5to7\Upgrader($options);
 $upgrader->run();

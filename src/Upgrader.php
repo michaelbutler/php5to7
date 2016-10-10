@@ -4,11 +4,18 @@ namespace michaelbutler\php5to7;
 
 class Upgrader
 {
+    /** @var string */
     private $inputPath;
+    private $backup;
 
-    public function __construct($inputPath)
+    /** @var Options */
+    private $originalOptions;
+
+    public function __construct(Options $options)
     {
-        $this->inputPath = $inputPath;
+        $this->originalOptions = $options;
+        $this->inputPath = $options->inputPath;
+        $this->backup = $options->backup;
     }
 
     public function run()
@@ -37,7 +44,9 @@ class Upgrader
 
         $string = $this->rebuildSourceCode($tokens);
 
-        echo $string;
+        if (!$this->originalOptions->overwrite) {
+            echo $string;
+        }
     }
 
     private function validateInputPath()
