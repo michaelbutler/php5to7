@@ -1,5 +1,7 @@
 <?php
 
+namespace Nonsense\FooBar;
+
 /**
  * Class FooBar
  *
