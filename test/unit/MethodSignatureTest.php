@@ -11,7 +11,7 @@ class MethodSignatureTest extends \PHPUnit_Framework_TestCase
         $tokens = [
             64 =>
                 array(
-                    0 => 382,
+                    0 => T_WHITESPACE,
                     1 => '
 
     ',
@@ -19,7 +19,7 @@ class MethodSignatureTest extends \PHPUnit_Framework_TestCase
                 ),
             65 =>
                 array(
-                    0 => 378,
+                    0 => T_DOC_COMMENT,
                     1 => '/**
      * @param string $param1 This does some stuff.
      *
@@ -32,65 +32,65 @@ class MethodSignatureTest extends \PHPUnit_Framework_TestCase
                 ),
             66 =>
                 array(
-                    0 => 382,
+                    0 => T_WHITESPACE,
                     1 => '
     ',
                     2 => 35,
                 ),
             67 =>
                 array(
-                    0 => 316,
+                    0 => T_PUBLIC,
                     1 => 'public',
                     2 => 36,
                 ),
             68 =>
                 array(
-                    0 => 382,
+                    0 => T_WHITESPACE,
                     1 => ' ',
                     2 => 36,
                 ),
             69 =>
                 array(
-                    0 => 346,
+                    0 => T_FUNCTION,
                     1 => 'function',
                     2 => 36,
                 ),
             70 =>
                 array(
-                    0 => 382,
+                    0 => T_WHITESPACE,
                     1 => ' ',
                     2 => 36,
                 ),
             71 =>
                 array(
-                    0 => 319,
+                    0 => T_STRING,
                     1 => 'myFunction2',
                     2 => 36,
                 ),
             72 => '(',
             73 =>
                 array(
-                    0 => 320,
+                    0 => T_VARIABLE,
                     1 => '$param1',
                     2 => 36,
                 ),
             74 => ',',
             75 =>
                 array(
-                    0 => 382,
+                    0 => T_WHITESPACE,
                     1 => ' ',
                     2 => 36,
                 ),
             76 =>
                 array(
-                    0 => 320,
+                    0 => T_VARIABLE,
                     1 => '$param2',
                     2 => 36,
                 ),
             77 => ')',
             78 =>
                 array(
-                    0 => 382,
+                    0 => T_WHITESPACE,
                     1 => '
     ',
                     2 => 36,
