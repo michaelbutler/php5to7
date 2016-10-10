@@ -33,3 +33,9 @@ This should not be used for large projects, mission critical code, etc. This is 
  * Parameters that are more than one type, e.g. `string|array`
  * Parameters other than the basic scalars: `int`, `float`, `string`, and `bool`
 * Code with scalar typehints **may** operate slower than code without them (might be negligible)
+
+## Contributing
+
+* Pull requests welcome
+* Please use the PSR2 standard with CodeSniffer
+
