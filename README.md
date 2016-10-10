@@ -1,4 +1,7 @@
 # php5to7
+
+[![Build Status](https://travis-ci.org/michaelbutler/php5to7.svg?branch=master)](https://travis-ci.org/michaelbutler/php5to7)
+
 Convert PHP5 code to PHP7 (scalar type hinted parameters, return types) by reading the PHPdoc blocks of your source file. For example, in PHP5 code if you had `@param int $index`, the function signature will be modified as `public function myFunc(int $index) {`
 
 
