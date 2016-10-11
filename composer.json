@@ -1,5 +1,7 @@
 {
     "name": "michaelbutler/php5to7",
+    "description": "Auto convert your PHP5 code to PHP7 (scalar type hints)",
+    "license": "GPL-3.0",
     "require": {
         "php": ">=5.4"
     },

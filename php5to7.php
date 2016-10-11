@@ -43,13 +43,13 @@ $options = new php5to7\Options($argv);
 
 if ($options->showHelp) {
     echo $helpMsg;
-    exit;
+    return;
 }
 
 if (empty($options->inputPath)) {
     echo "Please pass the input path (file or directory) as an argument.\n";
     echo $helpMsg;
-    exit(2);
+    return;
 }
 
 $upgrader = new php5to7\Upgrader($options);

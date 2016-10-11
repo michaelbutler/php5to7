@@ -1,0 +1,9 @@
+rules:
+  php.use_exit_function:
+    enabled: true
+    ignore_files:
+      - php5to7.php
+  php.dynamically_change_configuration:
+    enabled: true
+      ignore_files:
+            - php5to7.php
