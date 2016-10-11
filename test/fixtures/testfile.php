@@ -1,5 +1,7 @@
 <?php
 
+// @codingStandardsIgnoreStart
+
 namespace Nonsense\FooBar;
 
 /**
@@ -10,10 +12,12 @@ namespace Nonsense\FooBar;
  */
 class FooBar
 {
-    const MY_INT = 777;
+    // The next few lines purposely have tabs to confirm whitespace is maintained
+    // And that CodeSniffer will ignore this file
+	const MY_INT = 777;
 
-    public $bar;
-    public $baz;
+	public $bar;
+	public $baz;
 
     /**
      * @param int $param1 This does some stuff.
@@ -42,10 +46,11 @@ class FooBar
      *
      * @return string
      */
-    public function myFunction2($param1, $param2, array $param3 = [])
-    {
+    public function myFunction2($param1, $param2, array $param3 = []){
         echo $param1 . $param2;
 
         return $param1 . $param2;
     }
 }
+
+// @codingStandardsIgnoreEnd

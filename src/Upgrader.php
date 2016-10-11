@@ -11,6 +11,12 @@ class Upgrader
     /** @var Options */
     private $originalOptions;
 
+    /** @var int */
+    private $skipped = 0;
+
+    /** @var int */
+    private $written = 0;
+
     public function __construct(Options $options)
     {
         $this->originalOptions = $options;
@@ -20,40 +26,43 @@ class Upgrader
 
     public function run()
     {
-        $this->validateInputPath();
-        $contents = file_get_contents($this->inputPath);
-        $tokens = token_get_all($contents);
-        if (empty($tokens)) {
-            throw new UpgraderException('Could not parse the input file using token_get_all.');
-        }
-
-        $methodSignature = null;
-
-        $index = 0;
-        while (isset($tokens[$index])) {
-            $token = $tokens[$index];
-            $index++;
-            if ($token[0] === T_DOC_COMMENT) {
-                $methodSignature = MethodSignature::createFromTokens($tokens, $index - 1);
-                if (!$methodSignature) {
-                    continue;
-                }
-                $index = $this->fixUpMethodSignature($tokens, $index, $methodSignature);
+        $fileBucket = $this->getDirectoryIterator();
+        /** @var \SplFileInfo $file */
+        foreach ($fileBucket as $file) {
+            if (!$file->getExtension() !== 'php') {
+                ++$this->skipped;
+                continue;
             }
-        }
-
-        $string = $this->rebuildSourceCode($tokens);
-
-        if (!$this->originalOptions->overwrite) {
-            echo $string;
+            $string = $this->processOneFile($file);
+            if (!$this->originalOptions->overwrite) {
+                echo $string;
+                // Echo a separator
+                echo "\n-=-=-=-=-\n";
+                continue;
+            }
+            file_put_contents($file->getRealPath(), $string);
+            ++$this->written;
         }
     }
 
-    private function validateInputPath()
+    /**
+     * Validates the input path and sets up directory iterator to traverse.
+     *
+     * @throws UpgraderException
+     * @return \Traversable
+     */
+    private function getDirectoryIterator()
     {
         if (!is_readable($this->inputPath)) {
             throw new UpgraderException("The input path $this->inputPath is not readable.");
         }
+        if (!is_file($this->inputPath) && !is_dir($this->inputPath)) {
+            throw new UpgraderException("The input path $this->inputPath is not a file nor directory.");
+        }
+        if (is_dir($this->inputPath)) {
+            return FileProvider::fromDir($this->inputPath);
+        }
+        return FileProvider::fromSingle($this->inputPath);
     }
 
     /**
@@ -141,5 +150,36 @@ class Upgrader
             $buffer .= $token[1];
         }
         return $buffer;
+    }
+
+    /**
+     * @param \\SplFileInfo $file
+     * @return string
+     * @throws UpgraderException
+     */
+    private function processOneFile(\SplFileInfo $file)
+    {
+        $contents = file_get_contents($file->getRealPath());
+        $tokens = token_get_all($contents);
+        if (empty($tokens)) {
+            throw new UpgraderException('Could not parse the input file using token_get_all.');
+        }
+
+        $methodSignature = null;
+
+        $index = 0;
+        while (isset($tokens[$index])) {
+            $token = $tokens[$index];
+            $index++;
+            if ($token[0] === T_DOC_COMMENT) {
+                $methodSignature = MethodSignature::createFromTokens($tokens, $index - 1);
+                if (!$methodSignature) {
+                    continue;
+                }
+                $index = $this->fixUpMethodSignature($tokens, $index, $methodSignature);
+            }
+        }
+
+        return $this->rebuildSourceCode($tokens);
     }
 }
