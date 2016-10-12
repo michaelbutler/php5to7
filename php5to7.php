@@ -49,7 +49,7 @@ if ($options->showHelp) {
 if (empty($options->inputPath)) {
     echo "Please pass the input path (file or directory) as an argument.\n";
     echo $helpMsg;
-    return;
+    exit(2);
 }
 
 $upgrader = new php5to7\Upgrader($options);
