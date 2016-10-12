@@ -3,6 +3,10 @@
         backupGlobals="true"
         backupStaticAttributes="false"
         bootstrap="test/bootstrap.php">
+    <php>
+        <ini name="display_errors" value="On" />
+        <ini name="error_reporting" value="-1" />
+    </php>
     <testsuites>
         <testsuite name="php5to7 Test Suite">
             <directory>./test/unit</directory>

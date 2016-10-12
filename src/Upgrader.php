@@ -153,7 +153,7 @@ class Upgrader
     }
 
     /**
-     * @param \\SplFileInfo $file
+     * @param \SplFileInfo $file
      * @return string
      * @throws UpgraderException
      */
@@ -181,5 +181,13 @@ class Upgrader
         }
 
         return $this->rebuildSourceCode($tokens);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBackupEnabled()
+    {
+        return (bool) $this->backup;
     }
 }
