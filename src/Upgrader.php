@@ -29,15 +29,14 @@ class Upgrader
         $fileBucket = $this->getDirectoryIterator();
         /** @var \SplFileInfo $file */
         foreach ($fileBucket as $file) {
-            if (!$file->getExtension() !== 'php') {
+            if ($file->getExtension() !== 'php') {
                 ++$this->skipped;
                 continue;
             }
             $string = $this->processOneFile($file);
             if (!$this->originalOptions->overwrite) {
+                echo "\n--- File: " . $file->getRealPath() . " ---\n";
                 echo $string;
-                // Echo a separator
-                echo "\n-=-=-=-=-\n";
                 continue;
             }
             file_put_contents($file->getRealPath(), $string);

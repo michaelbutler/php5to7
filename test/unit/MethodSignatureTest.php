@@ -108,6 +108,71 @@ class MethodSignatureTest extends \PHPUnit_Framework_TestCase
         static::assertNull($result);
     }
 
+    public function testCreateFromTokensWithDanglingPhpDocWillReturnNull()
+    {
+        $tokens = [
+            64 =>
+                array(
+                    0 => T_WHITESPACE,
+                    1 => '
+
+    ',
+                    2 => 27,
+                ),
+            65 =>
+                array(
+                    0 => T_DOC_COMMENT,
+                    1 => '/**
+     * @param string $param1 This does some stuff.
+     *
+     * @param string $param2 This does some more stuff.
+     * @param array $param3 This does some more stuff.
+     *
+     * @return string
+     */',
+                    2 => 29,
+                ),
+            66 => 'z',
+            67 =>
+                array(
+                    0 => T_DOC_COMMENT,
+                    1 => '/**
+     * @param string $param1 This does some stuff.
+     *
+     * @param string $param2 This does some more stuff.
+     * @param array $param3 This does some more stuff.
+     *
+     * @return string
+     */',
+                    2 => 29,
+                ),
+            68 =>
+                array(
+                    0 => T_WHITESPACE,
+                    1 => '
+    ',
+                    2 => 35,
+                ),
+        ];
+
+        $result = MethodSignature::createFromTokens($tokens, 65);
+        static::assertNull($result);
+    }
+
+    public function testCreateFromTokensStartingOnNonDocCommentWillReturnNull()
+    {
+        $tokens = $this->getSampleTokens();
+        $result = MethodSignature::createFromTokens($tokens, 64);
+        static::assertNull($result);
+    }
+
+    public function testGetSizeMethodReturnsTokenCount()
+    {
+        $tokens = $this->getSampleTokens();
+        $result = MethodSignature::createFromTokens($tokens, 65);
+        static::assertSame(14, $result->getSize());
+    }
+
     public function testCreateFromTokensWillReturnMethodSignature()
     {
         $tokens = $this->getSampleTokens();
@@ -127,6 +192,9 @@ class MethodSignatureTest extends \PHPUnit_Framework_TestCase
                 'type' => 'array',
             ],
         ];
+
+        // Call once to "cache" the results
+        $result->getVariableTypeMap();
 
         static::assertNotEmpty($result);
         static::assertSame($expected, $result->getVariableTypeMap());
