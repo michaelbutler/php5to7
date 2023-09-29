@@ -1,5 +1,15 @@
 # php5to7
 
+**NOTE**
+
+**NOTE**
+
+**NOTE: There is not much point in using this repository. Please see Rector PHP [rectorphp/rector](https://github.com/rectorphp/rector) for a better solution.**
+
+**NOTE**
+
+**NOTE**
+
 [![Build Status](https://travis-ci.org/michaelbutler/php5to7.svg?branch=master)](https://travis-ci.org/michaelbutler/php5to7)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3115aae5-d067-4425-850a-577f54e53459/mini.png)](https://insight.sensiolabs.com/projects/3115aae5-d067-4425-850a-577f54e53459)
 
